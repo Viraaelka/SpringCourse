@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    <context:property-placeholder location="classpath:musicPlayer.properties"/>-->
+
+    <!-- Это пример РУЧНОГО создания бина -->
+    <bean id="testBean"
+          class="ru.course.spring.manual_creation.TestBean">
+        <constructor-arg value="Heeey!! You are the best!"/>
+    </bean>
+    <bean id="musicBean"
+          class="ru.course.spring.manual_creation.ClassicalMusic">
+        <!-- Нельзя писать вот так:
+          class="ru.course.spring.Music">
+          потому что Music - интерфейс, а создать объект интерфейса нельзя!
+          здесь должно быть что-то конкретное, из чего можно создать объект -->
+    </bean>
+    <bean id="rockBean"
+          class="ru.course.spring.manual_creation.RockMusic">
+    </bean>
+    <!-- for 1st option to implement dependency - Constructor -->
+    <bean id="musicPlayer"
+          class="ru.course.spring.manual_creation.MusicPlayer"
+          scope="prototype">
+        <!--        <constructor-arg ref="musicBean"/>-->
+        <!-- в строчке выше мы задаем конструктор и просим передать в конструктор значение,
+        которое задано в бине "musicBean", то бишь передаем ClassicalMusic в качестве параметра music в конструктор -->
+    </bean>
+    <!-- for 2nd option to implement dependency - Setter -->
+    <bean id="musicPlayerSetter"
+          class="ru.course.spring.manual_creation.MusicPlayer">
+        <property name="music" ref="musicBean"/>
+        <!-- в строчке выше мы передаем значение в сеттер,
+       которое задано в бине "musicBean", то бишь передаем ClassicalMusic в качестве параметра music в сеттер -->
+        <!-- ВНИМАНИЕ: в name="music" спринг берет setMusic и отбрасывает set, оставляет music и осуществляя по нему поиск
+        если бы сеттер имел название setSong, то надо было бы написать здесь name="song" -->
+        <property name="name" value="Some name"/> <!-- задаем напрямую -->
+        <property name="volume" value="50"/> <!-- задаем напрямую -->
+        <!--setName обозначает зависимость с name, a setVolume обозначает name="volume", а с помощью value
+        мы зададим значения, которые хотим передать в сеттер-->
+        <!--        <property name="name" value="${musicPlayer.name}"/>&lt;!&ndash; задаем через файл  &ndash;&gt;-->
+        <!--        <property name="volume" value="${musicPlayer.volume}"/>&lt;!&ndash; задаем через файл &ndash;&gt;-->
+    </bean>
+    <bean id="musicInitBean"
+          class="ru.course.spring.manual_creation.ClassicalMusic"
+          init-method="doMyInit"
+          destroy-method="doMyDestroy"
+          factory-method="getClassicalMusic">
+    </bean>
+</beans>
