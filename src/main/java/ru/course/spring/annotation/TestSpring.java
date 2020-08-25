@@ -12,14 +12,20 @@ public class TestSpring {
                 "applicationContextViaAnnotation.xml"
         );
 
-        Music music = context.getBean("someRockMusic", Music.class);
-        MusicPlayer musicPlayer = new MusicPlayer(music);
-        musicPlayer.playMusic();
-        // если не указывать id в @Component, то спринг сам назначает id как название класса,
-        // но первая буква будет маленькой
-        Music music2 = context.getBean("classicalMusic", Music.class);
-        MusicPlayer musicPlayer2 = new MusicPlayer(music2);
-        musicPlayer2.playMusic();
+//        Music music = context.getBean("someRockMusic", Music.class);
+//        MusicPlayer musicPlayer = new MusicPlayer(music);
+//        musicPlayer.playMusic();
+//        // если не указывать id в @Component, то спринг сам назначает id как название класса,
+//        // но первая буква будет маленькой
+//        Music music2 = context.getBean("classicalMusic", Music.class);
+//        MusicPlayer musicPlayer2 = new MusicPlayer(music2);
+//        musicPlayer2.playMusic();
+//        MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
+//        musicPlayer.playMusic();
+
+        Computer computer = context.getBean("computer", Computer.class);
+        System.out.println(computer);
+
         context.close();
 
     }
