@@ -10,4 +10,5 @@
     <!-- Это пример создания бина через аннотацию @Component -->
     <!-- Добавим для того, чтобы Spring просканировал все классы в пакете на предмет поиска бинов -->
     <context:component-scan base-package="ru.course.spring.annotation"/>
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
 </beans>
